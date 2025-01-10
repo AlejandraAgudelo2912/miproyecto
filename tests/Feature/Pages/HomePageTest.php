@@ -18,7 +18,9 @@ it('shows login and register buttons when not logged in', function () {
     $response = $this->get('/');
     //Act & Assert
     $response->assertSee('login')
-        ->assertSee('register');
+        ->assertSee('register')
+        ->assertDontSee('profile')
+        ->assertDontSee('logout');
 });
 
 it('shows profile and logout buttons when logged in', function () {
@@ -29,5 +31,7 @@ it('shows profile and logout buttons when logged in', function () {
     $response = $this->get('/');
     //Assert
     $response->assertSee('profile')
-        ->assertSee('logout');
+        ->assertSee('logout')
+        ->assertDontSee('login')
+        ->assertDontSee('register');
 });

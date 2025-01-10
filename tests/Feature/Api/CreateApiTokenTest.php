@@ -1,38 +1,32 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
 use Laravel\Jetstream\Http\Livewire\ApiTokenManager;
 use Livewire\Livewire;
 
-test('api token permissions can be updated', function () {
+test('Api tokens can be created', function () {
     if (Features::hasTeamFeatures()) {
         $this->actingAs($user = User::factory()->withPersonalTeam()->create());
     } else {
         $this->actingAs($user = User::factory()->create());
     }
 
-    $token = $user->tokens()->create([
-        'name' => 'Test Token',
-        'token' => Str::random(40),
-        'abilities' => ['create', 'read'],
-    ]);
-
     Livewire::test(ApiTokenManager::class)
-        ->set(['managingPermissionsFor' => $token])
-        ->set(['updateApiTokenForm' => [
+        ->set(['createApiTokenForm' => [
+            'name' => 'Test Token',
             'permissions' => [
-                'delete',
-                'missing-permission',
+                'read',
+                'update',
             ],
         ]])
-        ->call('updateApiToken');
+        ->call('createApiToken');
 
+    expect($user->fresh()->tokens)->toHaveCount(1);
     expect($user->fresh()->tokens->first())
-        ->can('delete')->toBeTrue()
-        ->can('read')->toBeFalse()
-        ->can('missing-permission')->toBeFalse();
+        ->name->toEqual('Test Token')
+        ->can('read')->toBeTrue()
+        ->can('delete')->toBeFalse();
 })->skip(function () {
     return ! Features::hasApiFeatures();
 }, 'API support is not enabled.');
