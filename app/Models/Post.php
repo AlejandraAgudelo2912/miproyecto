@@ -20,6 +20,11 @@ class Post extends Model
         'cover_image',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
