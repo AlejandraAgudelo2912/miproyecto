@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('status', ['published', 'draft','archived'])->default('draft');
             $table->dateTime('published_at');
             $table->enum('visibility', ['public', 'private'])->default('public');
+            $table->string('likes')->default(0);
             $table->string('cover_image')->nullable();
             $table->timestamps();
         });

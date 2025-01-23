@@ -19,6 +19,7 @@ class PostFactory extends Factory
             'slug' => $this->faker->slug(),
             'status' => $this->faker->randomElement(['published', 'draft', 'archived']),
             'visibility' => $this->faker->randomElement(['public', 'private']),
+            'likes' => $this->faker->numberBetween(0, 100),
             'cover_image' => $this->faker->imageUrl(),
             'published_at' => $this->faker->dateTimeBetween('now', '+1 year'),
         ];

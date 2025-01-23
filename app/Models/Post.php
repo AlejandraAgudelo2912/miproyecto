@@ -17,6 +17,7 @@ class Post extends Model
         'status',
         'published_at',
         'visibility',
+        'likes',
         'cover_image',
     ];
 

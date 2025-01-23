@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -35,3 +36,5 @@ it('shows profile and logout buttons when logged in', function () {
         ->assertDontSee('login')
         ->assertDontSee('register');
 });
+
+

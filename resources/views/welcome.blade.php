@@ -8,3 +8,5 @@
         <button type="submit">Logout</button>
     </form>
 @endguest
+
+<h1>{{__('Welcome')}}</h1>
