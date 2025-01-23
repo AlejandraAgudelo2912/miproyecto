@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -15,5 +16,33 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return view('posts.show', compact('post'));
+    }
+
+    public function create()
+    {
+        return view('posts.create');
+    }
+
+    public function store(StorePostRequest $request)
+    {
+        Post::create($request->validated());
+        return redirect()->route('posts.index')->with('success', 'Post created successfully');
+    }
+
+    public function edit(Post $post)
+    {
+        return view('posts.edit', compact('post'));
+    }
+
+    public function update(UpdatePostRequest $request, Post $post)
+    {
+        $post->update($request->validated());
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully');
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
     }
 }
