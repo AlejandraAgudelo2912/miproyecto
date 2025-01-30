@@ -26,7 +26,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        Post::create($request->validated());
+        Post::create(array_merge($request->validated(), ['user_id' => auth()->id(),'slug' => $request->title]));
         return redirect()->route('posts.index')->with('success', 'Post created successfully');
     }
 

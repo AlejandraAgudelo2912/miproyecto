@@ -10,6 +10,9 @@ class StorePostRequest extends FormRequest
     {
         return [
             'title' => 'required',
+            'body' => 'required',
+            'published_at' => 'required',
+
         ];
     }
 
