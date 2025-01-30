@@ -19,42 +19,66 @@ it('belongs to an user', function () {
     $this->assertEquals($user->id, $postUser->id);
 });
 
-it('create a post', function () {
-    //Arrange
+it('create a post successfully', function () {
+    // Arrange
     $user = User::factory()->create();
-    $post = Post::factory()->make(['user_id'=>$user->id]);
 
     //Act
-    $post->save();
+    $this->actingAs($user);
+    $postData = [
+        'title' => 'Título 1',
+        'body' => 'Body 1',
+    ];
 
-    //Assert
-    $this->assertInstanceOf(Post::class, $post);
-    $this->assertDatabaseHas('posts', ['title' => $post->title]);
+    // Act
+    $response = $this->post(route('posts.create'), $postData);
+
+    // Assert
+    $response->assertRedirect(route('posts.index'));
+    $this->assertDatabaseHas('posts', [
+        'title' => $postData['title'],
+        'body' => $postData['body'],
+        'user_id' => $user->id,
+    ]);
 });
 
-it('update a post', function () {
-    //Arrange
+it('updates a post successfully', function () {
+    // Arrange
     $user = User::factory()->create();
-    $post = Post::factory()->create(['user_id'=>$user->id]);
+    $this->actingAs($user);
 
-    //Act
-    $post->update(['title' => 'New title']);
+    $post = Post::factory()->create(['user_id' => $user->id]);
 
-    //Assert
-    $this->assertInstanceOf(Post::class, $post);
-    $this->assertDatabaseHas('posts', ['title' => 'New title']);
+    $updatedData = [
+        'title' => 'Updated title',
+        'body' => $post->body,
+    ];
+
+    // Act
+    $response = $this->put(route('posts.update', $post), $updatedData);
+
+    // Assert
+    $response->assertRedirect(route('posts.index'));
+    $this->assertDatabaseHas('posts', [
+        'id' => $post->id,
+        'title' => $updatedData['title'],
+    ]);
 });
 
-it('delete a post', function () {
-    //Arrange
+it('deletes a post successfully', function () {
+    // Arrange
     $user = User::factory()->create();
-    $post = Post::factory()->create(['user_id'=>$user->id]);
+    $this->actingAs($user);
 
-    //Act
-    $post->delete();
+    $post = Post::factory()->create(['user_id' => $user->id]);
 
-    //Assert
-    $this->assertInstanceOf(Post::class, $post);
-    $this->assertDatabaseMissing('posts', ['title' => $post->title]);
+    // Act
+    $response = $this->delete(route('posts.destroy', $post));
+
+    // Assert
+    $response->assertRedirect(route('posts.index'));
+    $this->assertDatabaseMissing('posts', [
+        'id' => $post->id,
+    ]);
 });
 

@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[PageHomeController::class,'index'])->name('page-home.index');
 
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{post}',[PostController::class,'show'])->name('post.show');
+Route::resource('posts', PostController::class);
 
 Route::middleware([
     'auth:sanctum',
