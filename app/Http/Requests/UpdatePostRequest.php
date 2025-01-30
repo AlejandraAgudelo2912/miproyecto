@@ -9,8 +9,9 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-
-        ];
+            'title' => 'required',
+            'body' => 'required',
+            ];
     }
 
     public function authorize(): bool

@@ -17,4 +17,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('/my-posts', [PostController::class, 'myPosts'])->name('posts.my');
+
 });

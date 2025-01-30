@@ -46,4 +46,9 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
     }
+    public function myPosts()
+    {
+        $posts = Post::where('user_id', auth()->id())->get();
+        return view('posts.index', compact('posts'));
+    }
 }
