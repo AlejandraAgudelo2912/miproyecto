@@ -1,3 +1,4 @@
+@extends('layouts.blog')
 <form method="POST" action="{{ route('posts.store') }}" class="mt-4">
     @csrf
     <label class="block font-medium text-sm text-gray-700 dark:text-gray-300" for="title">{{ __('Title') }}</label>
@@ -16,4 +17,3 @@
         {{ __('Create') }}
     </x-button>
 </form>
-

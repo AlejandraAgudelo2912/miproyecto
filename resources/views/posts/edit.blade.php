@@ -1,4 +1,5 @@
-<h1>Editar Post</h1>
+@extends('layouts.blog')
+<h1>{{__('Edit Post')}}</h1>
 
 <form action="{{ route('posts.update', $post) }}" method="POST">
     @csrf

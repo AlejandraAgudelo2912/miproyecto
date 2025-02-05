@@ -1,12 +1,11 @@
-@guest
-    <a href="{{ route('login') }}">Login</a>
-    <a href="{{ route('register') }}">Register</a>
-@else
-    <a href="{{ route('profile.show') }}">Profile</a>
-    <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <button type="submit">Logout</button>
-    </form>
-@endguest
+@extends('layouts.blog')
 
-<h1>{{__('Welcome')}}</h1>
+@section('content')
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
+                <x-welcome />
+            </div>
+        </div>
+    </div>
+@endsection
