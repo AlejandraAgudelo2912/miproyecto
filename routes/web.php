@@ -14,8 +14,8 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+        return redirect('/');
+    })->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::get('/my-posts', [PostController::class, 'myPosts'])->name('posts.my');
 
