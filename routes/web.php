@@ -19,4 +19,6 @@ Route::middleware([
 
     Route::get('/my-posts', [PostController::class, 'myPosts'])->name('posts.my');
 
+    Route::get('/posts/{post}/comments', [PostController::class, 'store'])->name('posts.comments');
+
 });

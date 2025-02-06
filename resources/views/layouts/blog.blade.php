@@ -7,12 +7,15 @@
     <!--archivos de JS y css-->
     @vite('resources/css/app.css', 'resources/js/app.js')
 </head>
-<body>
-@include('partials.navbar')
+    <body>
+        @include('partials.navbar')
+        <header class="bg-gray-200 dark:bg-gray-800 p-4">
+            {{ $header ?? '' }}
+        </header>
 
-<main>
-    {{ $slot }}
-</main>
+        <main>
+            {{ $slot }}
+        </main>
 
-</body>
+    </body>
 </html>
