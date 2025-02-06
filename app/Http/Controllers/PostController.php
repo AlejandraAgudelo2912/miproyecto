@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -26,7 +27,8 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        Post::create(array_merge($request->validated(), ['user_id' => auth()->id(),'slug' => $request->title]));
+        $slug = \Str::slug($request->title);
+        Post::create(array_merge($request->validated(), ['user_id' => auth()->id(),'slug' => $slug]));
         return redirect()->route('posts.index')->with('success', 'Post created successfully');
     }
 
@@ -37,7 +39,8 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $post->update($request->validated());
+        $slug = Str::slug($request->title);
+        $post->update(array_merge($request->validated(), ['slug' => $slug]));
         return redirect()->route('posts.index')->with('success', 'Post updated successfully');
     }
 

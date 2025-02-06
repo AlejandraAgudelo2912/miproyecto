@@ -13,6 +13,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Post::class)->constrained()->cascadeOnDelete();
+            $table->string('title');
+            $table->string('slug')->unique();
             $table->text('body');
             $table->timestamps();
         });

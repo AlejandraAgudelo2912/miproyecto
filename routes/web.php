@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageHomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -7,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[PageHomeController::class,'index'])->name('page-home.index');
 
 Route::resource('posts', PostController::class);
+
+Route::get('/posts/{post}/comments/{comment:slug}', [CommentController::class, 'show'])->name('posts.comments.show');
 
 Route::middleware([
     'auth:sanctum',
@@ -19,6 +22,6 @@ Route::middleware([
 
     Route::get('/my-posts', [PostController::class, 'myPosts'])->name('posts.my');
 
-    Route::get('/posts/{post}/comments', [PostController::class, 'store'])->name('posts.comments');
+    Route::resource('posts.comments', CommentController::class)->except(['show']);
 
 });
