@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <!--archivos de JS -->
-    @vite('resources/js/app.js')
-    @vite('resources/css/app.css')
+    <!--archivos de JS y css-->
+    @vite('resources/css/app.css', 'resources/js/app.js')
 </head>
 <body>
 @include('partials.navbar')
-@yield('content')
+
+<main>
+    {{ $slot }}
+</main>
 
 </body>
 </html>
