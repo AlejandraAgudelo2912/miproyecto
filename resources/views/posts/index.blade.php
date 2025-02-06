@@ -18,5 +18,3 @@
 
     @endauth
 </x-blog-layout>
-
-
