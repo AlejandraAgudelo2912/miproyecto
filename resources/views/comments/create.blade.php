@@ -7,6 +7,10 @@
     <form action="{{ route('posts.comments.store', $post) }}" method="POST">
         @csrf
         <div>
+            <label for="title">{{ __('Comment Title') }}</label>
+            <input type="text" name="title" id="title" required>
+        </div>
+        <div>
             <label for="body">{{ __('Comment Body') }}</label>
             <textarea name="body" id="body" rows="5" required></textarea>
         </div>

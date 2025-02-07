@@ -9,6 +9,8 @@ Route::get('/',[PageHomeController::class,'index'])->name('page-home.index');
 
 Route::resource('posts', PostController::class);
 
+//Route::get('/posts/{post}/comments/{comment:slug}', [CommentController::class, 'show'])->name('posts.comments.show');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

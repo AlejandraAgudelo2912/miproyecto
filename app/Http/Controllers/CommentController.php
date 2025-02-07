@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Support\Str;
 
 class CommentController extends Controller
 {
@@ -16,23 +17,24 @@ class CommentController extends Controller
     }
     public function store(StoreCommentRequest $request, Post $post)
     {
+        $slug=Str::slug($request->title);
         $request->validated();
-        Comment::create([
+        $comment = Comment::create([
             'user_id' => auth()->id(),
             'post_id' => $post->id,
+            'title' => $request->title,
+            'slug' => $slug,
             'body' => $request->body,
         ]);
+
         return redirect()->route('posts.show', $post)->with('success', 'Comment created successfully');
 
     }
 
-    public function edit(UpdateCommentRequest $request, Comment $comment)
+    public function edit(Post $post, Comment $comment)
     {
-        $request->validated();
-        $comment->update([
-            'body' => $request->body,
-        ]);
-        return redirect()->route('posts.show', $comment->post)->with('success', 'Comment updated successfully');
+
+        return view('comments.edit', compact('post', 'comment'));
     }
 
     public function destroy(Post $post, Comment $comment)
@@ -51,4 +53,15 @@ class CommentController extends Controller
         return view('comments.create', compact('post'));
     }
 
+    public function update(UpdateCommentRequest $request, Post $post, Comment $comment)
+    {
+        $validated = $request->validated();
+
+        $comment->update([
+            'body' => $validated['body'],
+        ]);
+
+        return redirect()->route('posts.show', $post)
+            ->with('success', 'Comment updated successfully');
+    }
 }

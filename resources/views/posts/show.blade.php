@@ -26,7 +26,7 @@
 
     <!--commentarios-->
     @auth
-        <a href="{{ route('posts.comments.create', $post) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md">
+        <a href="{{ route('posts.comments.create', ['post' => $post->slug]) }}" class="bg-blue-500 text-white px-4 py-2 rounded-md">
             {{ __('Add comment') }}
         </a>
     @else
@@ -41,9 +41,9 @@
             <a href="{{ route('posts.comments.show', ['post' => $post, 'comment' => $comment]) }}" class="text-blue-500">{{__('See comment')}}</a>
 
             @if(auth()->id() === $comment->user_id)
-                <a href="{{ route('posts.comments.edit', $comment) }}" class="btn btn-sm btn-warning">{{__('Edit')}}</a>
+                <a href="{{ route('posts.comments.edit',  ['post' => $post, 'comment' => $comment]) }}" class="btn btn-sm btn-warning">{{__('Edit')}}</a>
 
-                <form action="{{ route('posts.comments.destroy', $comment) }}" method="POST" class="d-inline">
+                <form action="{{ route('posts.comments.destroy',  ['post' => $post, 'comment' => $comment]) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('{{__('Are you sure you want to delete this comment?')}}')">{{__('Delete')}}</button>
