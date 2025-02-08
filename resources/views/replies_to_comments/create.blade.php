@@ -15,7 +15,7 @@
             <label for="body">{{ __('Comment Body') }}</label>
             <textarea name="body" id="body" rows="5" required></textarea>
         </div>
-        
+
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-2 rounded">{{ __('Reply') }}</button>
     </form>
 </x-blog-layout>

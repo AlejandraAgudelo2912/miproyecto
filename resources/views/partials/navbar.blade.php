@@ -3,13 +3,13 @@
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="relative flex items-center justify-between h-16">
             <!-- Logo a la izquierda -->
-            <div class="flex-shrink-0">
+            <div class="flex-shrink-0 mr-4">
                 <a href="/">
-                    <x-application-logo class="block h-12 w-auto" />
+                    <x-application-logo class="block h-10 w-auto" />
                 </a>
             </div>
 
-            <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="flex-1 flex items-center sm:items-stretch sm:justify-start">
                 <div class="flex-shrink-0">
                     <!-- Enlaces a otras páginas -->
                     <a href="/posts" class="text-2xl font-bold hover:text-indigo-100">{{__('See all Posts')}}</a>
