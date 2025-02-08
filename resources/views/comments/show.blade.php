@@ -11,6 +11,19 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     {{ $comment->user->name }}:
                     {{ $comment->body }}
+
+                   <a href=" {{ route('posts.comments.replied', ['post' => $post, 'comment' => $comment]) }}" class="text-blue-500">{{__('Reply')}}</a>
+
+                    @if($comment->children->count())
+                        <div class="ml-6 border-l-2 pl-3">
+                            @foreach($comment->children as $reply)
+                                <div class="mt-2">
+                                    <strong>{{ $reply->user->name }}</strong> {{ __('replied') }}:
+                                    <p>{{ $reply->body }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -20,6 +20,12 @@ Route::middleware([
 
     Route::get('/my-posts', [PostController::class, 'myPosts'])->name('posts.my');
 
+    Route::get('posts/{post}/comments/{comment}/reply', [CommentController::class, 'replied'])
+        ->name('posts.comments.replied');
+
+    Route::post('posts/{post}/comments/{comment}/reply', [CommentController::class, 'reply'])
+        ->name('posts.comments.reply');
+
     Route::resource('posts.comments', CommentController::class);
 
 });

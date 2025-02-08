@@ -19,7 +19,13 @@ class DatabaseSeeder extends Seeder
             Comment::factory(5)->create([
                 'post_id' => $post->id,
                 'user_id' => User::factory(),
-            ]);
+            ])->each(function ($comment) use ($post) {
+                Comment::factory(3)->create([
+                    'post_id' => $post->id,
+                    'user_id' => User::factory(),
+                    'parent_id' => $comment->id,
+                ]);
+            });
         });
 
         User::factory()->create([
