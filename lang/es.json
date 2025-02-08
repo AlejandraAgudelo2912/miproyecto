@@ -1,0 +1,15 @@
+{
+    "Create Post": "Crear Publicación",
+    "Title": "Título",
+    "Body": "Contenido",
+    "Status": "Estado",
+    "Publish Date": "Fecha de Publicación",
+    "Visibility": "Visibilidad",
+    "Cover Image": "Imagen de Portada",
+    "Submit": "Crear Publicación",
+    "Draft": "Borrador",
+    "Published": "Publicado",
+    "Archived": "Archivado",
+    "Public": "Público",
+    "Private": "Privado"
+}
