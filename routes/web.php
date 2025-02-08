@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageHomeController;
 use App\Http\Controllers\PostController;
@@ -25,6 +26,8 @@ Route::middleware([
 
     Route::post('posts/{post}/comments/{comment}/reply', [CommentController::class, 'reply'])
         ->name('posts.comments.reply');
+
+    Route::resource('categories', CategoryController::class);
 
     Route::resource('posts.comments', CommentController::class);
 

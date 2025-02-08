@@ -20,6 +20,7 @@ class Post extends Model
         'visibility',
         'likes',
         'cover_image',
+        'category_id',
     ];
 
     public function getRouteKeyName()
@@ -35,5 +36,10 @@ class Post extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function categories(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
 }

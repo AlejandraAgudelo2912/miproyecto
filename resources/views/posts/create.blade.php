@@ -47,6 +47,16 @@
                 <input type="file" name="cover_image" accept="image/*" class="block w-full mt-1 border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white p-2">
             </div>
 
+            <div class="mb-4">
+                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300"
+                       for="category_id">{{__('Category')}}</label>
+                <select name="category_id" required>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="flex justify-end mt-6">
                 <x-button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">
                     {{ __('Create Post') }}

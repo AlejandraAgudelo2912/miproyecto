@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->foreignId('parent_id')->before('post_id')->nullable()->constrained('comments')->onDelete('cascade');
+            $table->foreignId('parent_id')->before('title')->nullable()->constrained('comments')->onDelete('cascade');
         });
     }
 

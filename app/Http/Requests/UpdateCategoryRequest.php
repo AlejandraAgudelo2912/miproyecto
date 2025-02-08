@@ -4,15 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'title' => 'required',
-            'body' => 'required',
-            'published_at' => 'required',
-            'category_id' => 'required | exists:categories,id',
+            'name' => 'required|unique:categories,name,',
         ];
     }
 
