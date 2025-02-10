@@ -17,8 +17,8 @@
             <div class="block sm:ml-6">
                 <div class="flex space-x-4">
                     @guest
-                        <a href="{{ route('login') }}" class="text-white hover:bg-indigo-800 px-3 py-2 rounded-md text-sm font-medium">Login</a>
-                        <a href="{{ route('register') }}" class="text-white hover:bg-indigo-800 px-3 py-2 rounded-md text-sm font-medium">Register</a>
+                        <a href="{{ route('login') }}" class="text-white hover:bg-indigo-800 px-3 py-2 rounded-md text-sm font-medium">{{__('Login')}}</a>
+                        <a href="{{ route('register') }}" class="text-white hover:bg-indigo-800 px-3 py-2 rounded-md text-sm font-medium">{{__('Register')}}</a>
                     @else
                         <div class="relative">
                             <button class="text-white hover:bg-indigo-800 px-3 py-2 rounded-md text-sm font-medium" id="user-menu-button" aria-haspopup="true">
@@ -26,10 +26,10 @@
                             </button>
 
                             <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 hidden" id="user-menu">
-                                <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                                <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{__('Profile')}}</a>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                                    <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{__('Log Out')}}</button>
                                 </form>
                             </div>
 

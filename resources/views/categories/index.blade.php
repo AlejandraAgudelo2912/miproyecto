@@ -1,7 +1,7 @@
 <x-blog-layout>
     <x-slot name="header">{{__('Categories')}}</x-slot>
 
-    <a href="{{ route('categories.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Nueva Categoría</a>
+    <a href="{{ route('categories.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">{{__('Create Category')}}</a>
 
     <ul class="mt-4">
         @foreach ($categories as $category)
