@@ -16,6 +16,8 @@
             @endauth
             <li><a href="/categories" class="block hover:text-gray-400">{{__('Categories')}}</a></li>
             <li><a href="/tags" class="block hover:text-gray-400">{{__('Tags')}}</a></li>
+            <li><a href="/nasa/picture" class="block hover:text-gray-400">{{__('NASA Picture of the Day')}}</a></li>
+            <li><a href="/nasa/asteroids" class="block hover:text-gray-400">{{__('Near Asteroids to Earth')}}</a></li>
         </ul>
     </nav>
 </aside>
