@@ -1,7 +1,9 @@
 <x-blog-layout>
-    <x-slot name="header">{{__('Tags')}}</x-slot>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{__('Tags')}}</h2>
+    </x-slot>
 
-    <a href="{{ route('tags.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">{{__('Edit Tag')}}</a>
+    <a href="{{ route('tags.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">{{__('Create Tag')}}</a>
 
     <ul class="mt-4">
         @foreach ($tags as $tag)
