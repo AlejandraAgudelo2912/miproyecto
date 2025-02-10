@@ -6,6 +6,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -24,14 +25,15 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('posts.create', compact('categories'));
+        $tags = Tag::all();
+        return view('posts.create', compact('categories', 'tags'));
     }
 
     public function store(StorePostRequest $request)
     {
         $slug = Str::slug($request->title);
 
-        Post::create(array_merge(
+        $post = Post::create(array_merge(
             $request->validated(),
             [
                 'user_id' => auth()->id(),
@@ -40,12 +42,18 @@ class PostController extends Controller
             ]
         ));
 
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        }
+
         return redirect()->route('posts.index')->with('success', 'Post created successfully');
     }
 
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('posts.edit', compact('post', 'categories', 'tags'));
     }
 
     public function update(UpdatePostRequest $request, Post $post)
@@ -59,6 +67,12 @@ class PostController extends Controller
                 'category_id' => $request->category_id,
             ]
         ));
+
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        } else {
+            $post->tags()->detach();
+        }
 
         return redirect()->route('posts.index')->with('success', 'Post updated successfully');
     }

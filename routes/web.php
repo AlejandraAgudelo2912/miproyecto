@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageHomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[PageHomeController::class,'index'])->name('page-home.index');
@@ -30,5 +31,7 @@ Route::middleware([
     Route::resource('categories', CategoryController::class);
 
     Route::resource('posts.comments', CommentController::class);
+
+    Route::resource('tags', TagController::class);
 
 });

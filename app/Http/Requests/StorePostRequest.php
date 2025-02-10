@@ -13,6 +13,8 @@ class StorePostRequest extends FormRequest
             'body' => 'required',
             'published_at' => 'required',
             'category_id' => 'required | exists:categories,id',
+            'tags' => 'nullable|array',
+            'tags.*' => 'exists:tags,id',
         ];
     }
 

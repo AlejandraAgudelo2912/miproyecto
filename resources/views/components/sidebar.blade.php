@@ -9,6 +9,7 @@
                 <li><a href="{{ route('posts.my') }}" class="block hover:text-gray-400">{{__('My Posts')}}</a></li>
             @endauth
             <li><a href="/categories" class="block hover:text-gray-400">{{__('Categories')}}</a></li>
+            <li><a href="/tags" class="block hover:text-gray-400">{{__('Tags')}}</a></li>
         </ul>
     </nav>
 </aside>

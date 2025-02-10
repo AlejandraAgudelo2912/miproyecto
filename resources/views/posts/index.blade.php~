@@ -6,13 +6,6 @@
     </x-slot>
     @foreach($posts as $post)
         <p><a href="/posts/{{ $post->slug }}"> {{ $post->title }}</a></p>
-        <p class="text-gray-600">
-            Etiquetas:
-            @foreach ($post->tags as $tag)
-                <span class="bg-blue-500 text-white px-2 py-1 rounded">{{ $tag->name }}</span>
-            @endforeach
-        </p>
-
     @endforeach
 
     @auth

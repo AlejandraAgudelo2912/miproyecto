@@ -57,6 +57,15 @@
                 </select>
             </div>
 
+            <div class="mb-4">
+                <label class="block font-medium text-sm text-gray-700 dark:text-gray-300">Etiquetas</label>
+                <select name="tags[]" multiple class="block w-full mt-1 p-2 border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                    @foreach ($tags as $tag)
+                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <div class="flex justify-end mt-6">
                 <x-button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">
                     {{ __('Create Post') }}
