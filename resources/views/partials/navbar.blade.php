@@ -2,12 +2,6 @@
 <nav class="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 text-white py-4 ml-64">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="relative flex items-center justify-between h-16">
-            <!-- Logo a la izquierda -->
-            <div class="flex-shrink-0 mr-4">
-                <a href="/">
-                    <x-application-logo class="block h-10 w-auto" />
-                </a>
-            </div>
 
             <div class="flex-1 flex items-center sm:items-stretch sm:justify-start">
                 <div class="flex-shrink-0">

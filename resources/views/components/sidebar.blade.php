@@ -1,4 +1,10 @@
 <aside class="w-64 bg-gray-900 text-white h-screen p-4 fixed top-0 left-0">
+    <div class="flex-shrink-0 mr-4">
+        <a href="/">
+            <x-application-logo class="block h-10 w-auto"/>
+        </a>
+    </div>
+    <hr class="my-4">
     <h2 class="text-xl font-bold mb-4">{{__('Menu')}}</h2>
     <nav>
         <ul class="space-y-3">
