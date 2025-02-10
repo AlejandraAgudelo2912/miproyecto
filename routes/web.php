@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\EonetController;
 use App\Http\Controllers\NasaController;
 use App\Http\Controllers\PageHomeController;
 use App\Http\Controllers\PostController;
@@ -13,6 +14,9 @@ Route::get('/',[PageHomeController::class,'index'])->name('page-home.index');
 Route::resource('posts', PostController::class);
 Route::get('/nasa/picture', [NasaController::class, 'showPicture'])->name('nasa.picture');
 Route::get('/nasa/asteroids', [NasaController::class, 'showAsteroids'])->name('nasa.asteroids');
+Route::get('/events', [EonetController::class, 'index'])->name('eonet.index');
+Route::get('/events/{id}', [EonetController::class, 'show'])->name('eonet.show');
+
 
 Route::middleware([
     'auth:sanctum',
