@@ -3,7 +3,6 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EonetController;
-use App\Http\Controllers\LikeController;
 use App\Http\Controllers\NasaController;
 use App\Http\Controllers\PageHomeController;
 use App\Http\Controllers\PostController;
@@ -41,7 +40,5 @@ Route::middleware([
     Route::resource('posts.comments', CommentController::class);
 
     Route::resource('tags', TagController::class);
-
-    Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like');
 
 });

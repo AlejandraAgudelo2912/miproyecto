@@ -7,7 +7,6 @@
     <div>
         <h1>{{ $post->title }}</h1>
         {{ $post->body }}
-        {{$post->likes}}
         @if($post->user_id === auth()->id())
             <div>
                 <a href="{{ route('posts.edit', $post) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -20,8 +19,17 @@
                         {{__('Delete')}}
                     </button>
                 </form>
+
             </div>
         @endif
+        <div class="flex items-center">
+            <form action="{{ route('posts.like', $post) }}" method="POST">
+                @csrf
+                <button type="submit" class="flex items-center text-gray-600 hover:text-red-500">
+                    {{ $post->likes }} {{__('Likes')}}
+                </button>
+            </form>
+        </div>
     </div>
 
     <!--commentarios-->
