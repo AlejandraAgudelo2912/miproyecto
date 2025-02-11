@@ -35,12 +35,19 @@ class CommentController extends Controller
 
     public function edit(Post $post, Comment $comment)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para editar un comentario.');
+        }
 
         return view('comments.edit', compact('post', 'comment'));
     }
 
     public function destroy(Post $post, Comment $comment)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para eliminar un comentario.');
+        }
+
         $comment->delete();
         return redirect()->route('posts.show', $post)->with('success', 'Comment deleted successfully');
     }
@@ -52,6 +59,10 @@ class CommentController extends Controller
 
     public function create(Post $post, Comment $parent_id)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para crear un comentario.');
+        }
+
         return view('comments.create', compact('post', 'parent_id'));
     }
 

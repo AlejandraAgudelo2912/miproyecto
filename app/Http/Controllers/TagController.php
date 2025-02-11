@@ -18,6 +18,10 @@ class TagController extends Controller
 
     public function create()
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para crear una etiqueta.');
+        }
+
         return view('tags.create');
     }
 
@@ -35,6 +39,10 @@ class TagController extends Controller
 
     public function edit(Tag $tag)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para editar una etiqueta.');
+        }
+
         return view('tags.edit', compact('tag'));
     }
 
@@ -52,6 +60,10 @@ class TagController extends Controller
 
     public function destroy(Tag $tag)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para eliminar una etiqueta.');
+        }
+
         $tag->delete();
         return redirect()->route('tags.index')->with('success', 'Tag deleted successfully.');
     }

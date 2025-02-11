@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[PageHomeController::class,'index'])->name('page-home.index');
 
 Route::resource('posts', PostController::class);
+Route::resource('categories', CategoryController::class);
+Route::resource('tags', TagController::class);
+Route::resource('posts.comments', CommentController::class);
 Route::get('/nasa/picture', [NasaController::class, 'showPicture'])->name('nasa.picture');
 Route::get('/nasa/asteroids', [NasaController::class, 'showAsteroids'])->name('nasa.asteroids');
 Route::get('/events', [EonetController::class, 'index'])->name('eonet.index');
 Route::get('/events/{id}', [EonetController::class, 'show'])->name('eonet.show');
 Route::get('/map', [ObservationPointController::class, 'index'])->name('map.index');
-Route::post('/map/add', [ObservationPointController::class, 'store'])->name('map.store')->middleware('auth');
 
 Route::middleware([
     'auth:sanctum',
@@ -31,19 +33,10 @@ Route::middleware([
     })->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::get('/my-posts', [PostController::class, 'myPosts'])->name('posts.my');
-
     Route::get('posts/{post}/comments/{comment}/reply', [CommentController::class, 'replied'])
         ->name('posts.comments.replied');
-
     Route::post('posts/{post}/comments/{comment}/reply', [CommentController::class, 'reply'])
         ->name('posts.comments.reply');
-
-    Route::resource('categories', CategoryController::class);
-
-    Route::resource('posts.comments', CommentController::class);
-
-    Route::resource('tags', TagController::class);
-
     Route::post('/posts/{post}/like', [LikeController::class, 'toggle'])->name('posts.like');
-
+    Route::post('/map/add', [ObservationPointController::class, 'store'])->name('map.store');
 });

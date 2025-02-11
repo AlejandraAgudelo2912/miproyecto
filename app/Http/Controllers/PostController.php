@@ -25,6 +25,10 @@ class PostController extends Controller
 
     public function create()
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para crear un post.');
+        }
+
         $categories = Category::all();
         $tags = Tag::all();
         return view('posts.create', compact('categories', 'tags'));
@@ -59,6 +63,10 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para editar un post.');
+        }
+
         $categories = Category::all();
         $tags = Tag::all();
         return view('posts.edit', compact('post', 'categories', 'tags'));
@@ -104,6 +112,9 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para eliminar un post.');
+        }
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
     }

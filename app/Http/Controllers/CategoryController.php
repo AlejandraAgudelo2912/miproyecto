@@ -17,6 +17,10 @@ class CategoryController extends Controller
 
     public function create()
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para crear una categoria.');
+        }
+
         return view('categories.create');
     }
 
@@ -36,6 +40,10 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para editar una categoria.');
+        }
+
         return view('categories.edit', compact('category'));
     }
 
@@ -55,6 +63,10 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        if (!auth()->check()) {
+            return redirect()->route('login')->with('error', 'Debes iniciar sesión para eliminar una categoria.');
+        }
+
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Categoría eliminada.');
     }
