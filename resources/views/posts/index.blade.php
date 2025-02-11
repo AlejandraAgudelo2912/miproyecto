@@ -5,6 +5,10 @@
         </h2>
     </x-slot>
 
+    @role('god')
+        <p class="text-green-500">🌟 ¡Eres el administrador principal (God)!</p>
+    @endrole
+
     <div class="max-w-6xl mx-auto mt-6 space-y-6">
         @foreach($posts as $post)
             <div class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 border-l-4 border-indigo-500">

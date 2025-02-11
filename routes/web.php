@@ -8,6 +8,7 @@ use App\Http\Controllers\NasaController;
 use App\Http\Controllers\ObservationPointController;
 use App\Http\Controllers\PageHomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,11 @@ Route::get('/nasa/asteroids', [NasaController::class, 'showAsteroids'])->name('n
 Route::get('/events', [EonetController::class, 'index'])->name('eonet.index');
 Route::get('/events/{id}', [EonetController::class, 'show'])->name('eonet.show');
 Route::get('/map', [ObservationPointController::class, 'index'])->name('map.index');
+
+Route::middleware(['auth', 'role:god'])->group(function () {
+    Route::get('/admin/users', [RoleController::class, 'index'])->name('users.index');
+    Route::post('/admin/users/assign-role', [RoleController::class, 'assignRole'])->name('users.assignRole');
+});
 
 Route::middleware([
     'auth:sanctum',

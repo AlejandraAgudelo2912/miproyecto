@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(RolesAndPermissionsSeeder::class);
+
         Post::factory(10)->create()->each(function ($post) {
             Comment::factory(5)->create([
                 'post_id' => $post->id,
@@ -30,12 +32,6 @@ class DatabaseSeeder extends Seeder
                 ]);
             });
         });
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('12345678'),
-        ]);
 
         Category::factory(5)->create();
 
