@@ -1,16 +1,12 @@
 <script type="text/javascript" src="{{ asset('js/navbar.js') }}"></script>
-<nav class="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 text-white py-4 ml-64">
+<nav class="bg-gradient-to-r from-[#6a85b6] via-[#bac8e0] to-[#8ba1c4] text-white py-4 ml-64 relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="relative flex items-center justify-between h-16">
 
             <div class="flex-1 flex items-center sm:items-stretch sm:justify-start">
                 <div class="flex-shrink-0">
                     <!-- Enlaces a otras páginas -->
-                    <a href="/posts" class="text-2xl font-bold hover:text-indigo-100">{{__('See all Posts')}}</a>
-                    @auth
-                        <a href="{{ route('posts.create') }}" class="mr-2 text-2xl hover:text-indigo-100">{{__('Create Post')}}</a>
-                        <a href="{{ route('posts.my') }}" class="mr-2 text-2xl hover:text-indigo-100">{{__('My Posts')}}</a>
-                    @endauth
+
                 </div>
             </div>
 

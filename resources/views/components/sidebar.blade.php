@@ -2,6 +2,7 @@
     <div class="flex-shrink-0 mr-4">
         <a href="/">
             <x-application-logo class="block h-10 w-auto"/>
+            <span class="text-2xl font-bold tracking-wide" style="font-family: 'Poppins', sans-serif;">AstroBlog</span>
         </a>
     </div>
     <hr class="my-4">

@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -33,20 +34,27 @@ class PostController extends Controller
     {
         $slug = Str::slug($request->title);
 
-        $post = Post::create(array_merge(
-            $request->validated(),
-            [
-                'user_id' => auth()->id(),
-                'slug' => $slug,
-                'category_id' => $request->category_id,
-            ]
-        ));
+        $post = Post::create([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'slug' => $slug,
+            'body' => $request->body,
+            'category_id' => $request->category_id,
+            'status' => $request->status,
+            'published_at' => $request->published_at,
+            'visibility' => $request->visibility,
+        ]);
+
+        if ($request->hasFile('cover_image')) {
+            $path = $request->file('cover_image')->store('posts', 'public');
+            $post->update(['cover_image' => $path]);
+        }
 
         if ($request->has('tags')) {
             $post->tags()->sync($request->tags);
         }
 
-        return redirect()->route('posts.index')->with('success', 'Post created successfully');
+        return redirect()->route('posts.index')->with('success', 'Publicación creada correctamente.');
     }
 
     public function edit(Post $post)
@@ -58,15 +66,31 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request, Post $post)
     {
+        if ($post->user_id !== auth()->id()) {
+            return redirect()->route('posts.index')->with('error', 'No tienes permiso para editar esta publicación.');
+        }
+
         $slug = Str::slug($request->title);
 
-        $post->update(array_merge(
-            $request->validated(),
-            [
-                'slug' => $slug,
-                'category_id' => $request->category_id,
-            ]
-        ));
+        $post->update([
+            'user_id' => auth()->id(),
+            'title' => $request->title,
+            'slug' => $slug,
+            'body' => $request->body,
+            'status' => $request->status,
+            'published_at' => $request->published_at,
+            'visibility' => $request->visibility,
+            'category_id' => $request->category_id,
+        ]);
+
+        if ($request->hasFile('cover_image')) {
+            if ($post->cover_image) {
+                Storage::disk('public')->delete($post->cover_image);
+            }
+
+            $path = $request->file('cover_image')->store('posts', 'public');
+            $post->update(['cover_image' => $path]);
+        }
 
         if ($request->has('tags')) {
             $post->tags()->sync($request->tags);
@@ -74,8 +98,9 @@ class PostController extends Controller
             $post->tags()->detach();
         }
 
-        return redirect()->route('posts.index')->with('success', 'Post updated successfully');
+        return redirect()->route('posts.index')->with('success', 'Publicación actualizada correctamente.');
     }
+
 
     public function destroy(Post $post)
     {

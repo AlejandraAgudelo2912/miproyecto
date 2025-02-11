@@ -8,18 +8,15 @@ class LikeController extends Controller
 {
     public function toggle(Post $post)
     {
-        $user = auth()->user();
 
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para dar like.');
-        }
+        $liked = session()->get("liked_posts.{$post->id}", false);
 
-        if ($user->liked_posts->contains($post->id)) {
+        if ($liked) {
             $post->decrement('likes');
-            $user->liked_posts()->detach($post->id);
+            session()->forget("liked_posts.{$post->id}");
         } else {
             $post->increment('likes');
-            $user->liked_posts()->attach($post->id);
+            session()->put("liked_posts.{$post->id}", true);
         }
 
         return redirect()->back();

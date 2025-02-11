@@ -6,8 +6,14 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
         <!--archivos de JS y css-->
         @vite('resources/css/app.css', 'resources/js/app.js')
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Poppins', sans-serif;
+            }
+        </style>
     </head>
-    <body>
+    <body class="bg-gray-100 dark:bg-black text-gray-900 dark:text-gray-200">
         @include('partials.navbar')
 
         <div class="flex min-h-screen">
@@ -18,7 +24,7 @@
                     {{ $header ?? '' }}
                 </header>
 
-                <main class="p-6 ml-64">
+                <main class="min-h-screen bg-gray-100 dark:bg-gray-900/80 text-gray-900 dark:text-gray-200 p-6 ml-64">
                     {{ $slot }}
                 </main>
             </div>
