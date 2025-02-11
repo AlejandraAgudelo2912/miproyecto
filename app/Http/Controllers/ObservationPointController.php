@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreObservationPointRequest;
 use App\Models\ObservationPoint;
-use Illuminate\Http\Request;
 
 class ObservationPointController extends Controller
 {
@@ -13,14 +13,9 @@ class ObservationPointController extends Controller
         return view('map.index', compact('points'));
     }
 
-    public function store(Request $request)
+    public function store(StoreObservationPointRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-        ]);
+        $request->validated();
 
         ObservationPoint::create([
             'user_id' => auth()->user()->id,
