@@ -19,6 +19,7 @@
             <li><a href="/nasa/picture" class="block hover:text-gray-400">{{__('NASA Picture of the Day')}}</a></li>
             <li><a href="/nasa/asteroids" class="block hover:text-gray-400">{{__('Near Asteroids to Earth')}}</a></li>
             <li><a href="/events" class="block hover:text-gray-400">{{__('Natural and Astronomical Events')}}</a></li>
+            <li><a href="/map" class="block hover:text-gray-400">{{__('Map of Observations')}}</a> </li>
         </ul>
     </nav>
 </aside>

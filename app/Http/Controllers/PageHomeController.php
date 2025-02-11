@@ -21,8 +21,10 @@ class PageHomeController extends Controller
     {
         $apod = $this->nasaService->getAstronomyPicture();
         $events = array_slice($this->eonetService->getEvents()['events'], 0, 3);
-        $asteroids = array_slice($this->nasaService->getAsteroids()['near_earth_objects'], 0, 3);
+        $asteroids = array_slice($this->nasaService->getAsteroids()['near_earth_objects'], 0, 1);
 
-        return view('welcome', compact('apod', 'events', 'asteroids'));
+        $topPosts = Post::orderByDesc('likes')->take(5)->get();
+
+        return view('welcome', compact('apod', 'events', 'asteroids', 'topPosts'));
     }
 }

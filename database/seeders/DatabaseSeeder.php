@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\ObservationPoint;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
@@ -39,5 +40,7 @@ class DatabaseSeeder extends Seeder
         Category::factory(5)->create();
 
         Tag::factory(10)->create();
+
+        ObservationPoint::factory(10)->create();
     }
 }

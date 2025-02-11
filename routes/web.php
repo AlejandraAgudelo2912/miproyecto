@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EonetController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\NasaController;
+use App\Http\Controllers\ObservationPointController;
 use App\Http\Controllers\PageHomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
@@ -17,7 +18,8 @@ Route::get('/nasa/picture', [NasaController::class, 'showPicture'])->name('nasa.
 Route::get('/nasa/asteroids', [NasaController::class, 'showAsteroids'])->name('nasa.asteroids');
 Route::get('/events', [EonetController::class, 'index'])->name('eonet.index');
 Route::get('/events/{id}', [EonetController::class, 'show'])->name('eonet.show');
-
+Route::get('/map', [ObservationPointController::class, 'index'])->name('map.index');
+Route::post('/map/add', [ObservationPointController::class, 'store'])->name('map.store')->middleware('auth');
 
 Route::middleware([
     'auth:sanctum',
