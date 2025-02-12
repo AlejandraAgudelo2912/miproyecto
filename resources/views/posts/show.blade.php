@@ -13,19 +13,7 @@
             <img src="{{ asset('storage/' . $post->cover_image) }}" class="w-full h-64 object-cover rounded-lg shadow-md">
         @endif
 
-        <div class="flex items-center mt-4">
-            <form action="{{ route('posts.like', $post) }}" method="POST">
-                @csrf
-                <button type="submit" class="flex items-center">
-                    @if(session()->has("liked_posts.{$post->id}"))
-                        <x-heart-like class="w-6 h-6"/>
-                    @else
-                        <x-heart-unlike class="w-6 h-6"/>
-                    @endif
-                    <span class="ml-2 text-gray-600 dark:text-gray-400">{{ $post->likes }} {{__('Likes')}}</span>
-                </button>
-            </form>
-        </div>
+        @livewire('like-button', ['post' => $post])
 
 
         @if($post->user_id === auth()->id())
