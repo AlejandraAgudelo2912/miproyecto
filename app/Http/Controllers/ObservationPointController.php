@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreObservationPointRequest;
 use App\Models\ObservationPoint;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ObservationPointController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         $points = ObservationPoint::all();
@@ -15,6 +18,7 @@ class ObservationPointController extends Controller
 
     public function store(StoreObservationPointRequest $request)
     {
+        $this->authorize('create', ObservationPoint::class);
         $request->validated();
 
         ObservationPoint::create([

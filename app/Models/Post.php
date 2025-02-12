@@ -52,4 +52,9 @@ class Post extends Model
     {
         return $this->belongsToMany(User::class, 'post_likes')->withTimestamps();
     }
+
+    public function scopePublicados($query)
+    {
+        return $query->where('status', 'published')->where('visibility', 'public');
+    }
 }

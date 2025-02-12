@@ -7,14 +7,17 @@ use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
-        $posts = Post::where('status', 'published')->where('visibility', 'public')->get();
+        $posts = Post::publicados()->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -34,6 +37,7 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
+        $this->authorize('create', Post::class);
         $slug = Str::slug($request->title);
 
         $post = Post::create([
@@ -61,9 +65,7 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para editar un post.');
-        }
+        $this->authorize('update', $post);
 
         $categories = Category::all();
         $tags = Tag::all();
@@ -72,8 +74,7 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $this->authorize('updatePost', $post);
-
+        $this->authorize('update', $post);
         $slug = Str::slug($request->title);
 
         $post->update([
@@ -108,7 +109,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $this->authorize('deletePost', $post);
+        $this->authorize('delete', $post);
 
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully');

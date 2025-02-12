@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTagRequest;
 use App\Http\Requests\UpdateTagRequest;
 use App\Models\Tag;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         $tags = Tag::all();
@@ -18,15 +20,13 @@ class TagController extends Controller
 
     public function create()
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para crear una etiqueta.');
-        }
-
+        $this->authorize('create', Tag::class);
         return view('tags.create');
     }
 
     public function store(StoreTagRequest $request)
     {
+        $this->authorize('create', Tag::class);
         $request->validated();
 
         Tag::create([
@@ -39,15 +39,13 @@ class TagController extends Controller
 
     public function edit(Tag $tag)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para editar una etiqueta.');
-        }
-
+        $this->authorize('update', $tag);
         return view('tags.edit', compact('tag'));
     }
 
     public function update(UpdateTagRequest $request, Tag $tag)
     {
+        $this->authorize('update', $tag);
         $request->validated();
 
         $tag->update([
@@ -60,10 +58,7 @@ class TagController extends Controller
 
     public function destroy(Tag $tag)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para eliminar una etiqueta.');
-        }
-
+        $this->authorize('delete', $tag);
         $tag->delete();
         return redirect()->route('tags.index')->with('success', 'Tag deleted successfully.');
     }

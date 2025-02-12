@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Post;
-use App\Models\PostPolicy;
+use App\Policies\PostPolicy;
 use App\View\Components\BlogLayout;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Gate;

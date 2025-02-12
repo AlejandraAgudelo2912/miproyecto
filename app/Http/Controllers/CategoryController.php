@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         $categories = Category::all();
@@ -17,15 +20,13 @@ class CategoryController extends Controller
 
     public function create()
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para crear una categoria.');
-        }
-
+        $this->authorize('create', Category::class);
         return view('categories.create');
     }
 
     public function store(StoreCategoryRequest $request)
     {
+        $this->authorize('create', Category::class);
         $request->validate([
             'name' => 'required|unique:categories,name|max:255',
         ]);
@@ -40,15 +41,13 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para editar una categoria.');
-        }
-
+        $this->authorize('update', Category::class);
         return view('categories.edit', compact('category'));
     }
 
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+        $this->authorize('update', Category::class);
         $request->validate([
             'name' => 'required|unique:categories,name,' . $category->id . '|max:255',
         ]);
@@ -63,10 +62,7 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para eliminar una categoria.');
-        }
-
+        $this->authorize('delete', Category::class);
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Categoría eliminada.');
     }

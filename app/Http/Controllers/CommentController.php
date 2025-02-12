@@ -6,10 +6,13 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Str;
 
 class CommentController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index(Post $post)
     {
         $comments = $post->comments()->whereNull('parent_id')->with('children')->get();
@@ -17,6 +20,7 @@ class CommentController extends Controller
     }
     public function store(StoreCommentRequest $request, Post $post)
     {
+        $this->authorize('create', Comment::class);
         $slug = Str::slug($request->title);
 
         $parent_id = $request->input('parent_id');
@@ -35,19 +39,13 @@ class CommentController extends Controller
 
     public function edit(Post $post, Comment $comment)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para editar un comentario.');
-        }
-
+        $this->authorize('update', $comment);
         return view('comments.edit', compact('post', 'comment'));
     }
 
     public function destroy(Post $post, Comment $comment)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para eliminar un comentario.');
-        }
-
+        $this->authorize('delete', $comment);
         $comment->delete();
         return redirect()->route('posts.show', $post)->with('success', 'Comment deleted successfully');
     }
@@ -59,15 +57,13 @@ class CommentController extends Controller
 
     public function create(Post $post, Comment $parent_id)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para crear un comentario.');
-        }
-
+        $this->authorize('create', Post::class);
         return view('comments.create', compact('post', 'parent_id'));
     }
 
     public function update(UpdateCommentRequest $request, Post $post, Comment $comment)
     {
+        $this->authorize('update', $comment);
         $validated = $request->validated();
 
         $comment->update([
