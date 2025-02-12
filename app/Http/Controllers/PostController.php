@@ -25,9 +25,7 @@ class PostController extends Controller
 
     public function create()
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para crear un post.');
-        }
+        $this->authorize('create', Post::class);
 
         $categories = Category::all();
         $tags = Tag::all();
@@ -74,9 +72,7 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request, Post $post)
     {
-        if ($post->user_id !== auth()->id()) {
-            return redirect()->route('posts.index')->with('error', 'No tienes permiso para editar esta publicación.');
-        }
+        $this->authorize('updatePost', $post);
 
         $slug = Str::slug($request->title);
 
@@ -112,9 +108,8 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Debes iniciar sesión para eliminar un post.');
-        }
+        $this->authorize('deletePost', $post);
+
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
     }

@@ -43,16 +43,19 @@
             </div>
         @endforeach
     </div>
-
-    @auth
-        <div class="mt-8 flex justify-center space-x-4">
+    <div class="mt-8 flex justify-center space-x-4">
+        @can('create', App\Models\Post::class)
             <a href="{{ route('posts.create') }}" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition">
                 {{__('Create Post')}}
             </a>
-            <a href="{{ route('posts.my') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition">
-                {{__('My Posts')}}
-            </a>
-        </div>
-    @endauth
+        @endcan
+
+        @auth
+                <a href="{{ route('posts.my') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition">
+                    {{__('My Posts')}}
+                </a>
+
+        @endauth
+    </div>
 
 </x-blog-layout>

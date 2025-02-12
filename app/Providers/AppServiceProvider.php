@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Post;
+use App\Models\PostPolicy;
 use App\View\Components\BlogLayout;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,5 +25,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Blade::component('blog-layout', BlogLayout::class);
+
+        Gate::policy(Post::class, PostPolicy::class);
+
+        Gate::define('manage-users', function ($user) {
+            return $user->hasRole('god') || $user->hasRole('admin');
+        });
     }
 }
