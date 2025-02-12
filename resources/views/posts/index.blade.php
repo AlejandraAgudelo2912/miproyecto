@@ -6,7 +6,7 @@
     </x-slot>
 
     @role('god')
-        <p class="text-green-500">🌟 ¡Eres el administrador principal (God)!</p>
+        <p class="text-green-500">¡Eres el administrador principal (God)!</p>
     @endrole
 
     <div class="max-w-6xl mx-auto mt-6 space-y-6">
