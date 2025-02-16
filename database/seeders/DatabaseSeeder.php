@@ -33,10 +33,17 @@ class DatabaseSeeder extends Seeder
             });
         });
 
+        $user=User::factory()->create([
+            'email' => 'paca@gmail.com',
+            'password' => bcrypt('12345678'),
+
+        ]);
         Category::factory(5)->create();
-
         Tag::factory(10)->create();
-
         ObservationPoint::factory(10)->create();
+
+        $token = $user->createToken('User-token')->plainTextToken;
+
+        dd($token);
     }
 }
